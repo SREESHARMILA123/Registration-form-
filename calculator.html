@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webpage with Carousel and Calculator</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f0f8ff, #c9e9ff, #a1d4ff, #7ac1ff, #53aeff);
+      animation: floating 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floating {
+      from {
+        transform: translateY(0px);
+      }
+      to {
+        transform: translateY(10px);
+      }
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    }
+
+    .carousel {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .carousel-img {
+      max-width: 100%;
+      height: auto;
+      margin: 0 10px;
+      border: 2px solid #007bff;
+      border-radius: 10px;
+    }
+
+    .calculator {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      position: relative; /* Added position relative */
+    }
+
+    #display {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 5px;
+    }
+
+    .buttons button {
+      padding: 10px;
+      font-size: 18px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .buttons button:hover {
+      background-color: #f5f5f5;
+    }
+
+    #submitButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Added style for the displayed image */
+    #resultImage {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      max-width: 200px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="carousel">
+      <img width="100" src="1.webp" alt="Image 1" class="carousel-img">
+      <img width="100" src="2.webp" alt="Image 2" class="carousel-img">
+      <img width="100" src="3.webp" alt="Image 3" class="carousel-img">
+    </div>
+    <div class="calculator">
+      <input type="text" id="display" readonly>
+      <div class="buttons">
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('+')">+</button>
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('-')">-</button>
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('*')">*</button>
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="appendToDisplay('.')">.</button>
+        <button onclick="calculate()" style="background-color: #4CAF50; color: white;">=</button>
+        <button onclick="appendToDisplay('/')" style="background-color: #FFA500; color: white;">/</button>
+      </div>
+      <button id="submitButton" onclick="submitResult()">Submit</button>
+      <!-- Image to display result -->
+      <img id="resultImage" src="" alt="Result Image" onclick="hideResult()">
+    </div>
+  </div>
+
+  <script>
+    let displayValue = '';
+
+    function appendToDisplay(value) {
+      displayValue += value;
+      document.getElementById('display').value = displayValue;
+    }
+
+    function clearDisplay() {
+      displayValue = '';
+      document.getElementById('display').value = displayValue;
+    }
+
+    function calculate() {
+      try {
+        displayValue = eval(displayValue);
+        document.getElementById('display').value = displayValue;
+        document.getElementById('submitButton').style.display = 'block';
+      } catch (error) {
+        document.getElementById('display').value = 'Error';
+      }
+    }
+
+    function submitResult() {
+      let images = document.querySelectorAll('.carousel-img');
+      images.forEach((image, index) => {
+        if (index === 0) {
+          // Display the first image at the bottom
+          document.getElementById('resultImage').src = image.src;
+          document.getElementById('resultImage').style.display = 'block';
+        }
+      });
+    }
+
+    function hideResult() {
+      // Hide the displayed image
+      document.getElementById('resultImage').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

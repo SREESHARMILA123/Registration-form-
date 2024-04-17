@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webpage with Carousel and Calculator</title>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .carousel {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .carousel-img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .calculator {
+      text-align: center;
+    }
+
+    #display {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 5px;
+    }
+
+    .buttons button {
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    #imageButton {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="carousel">
+      <img src="image1.jpg" alt="Image 1" class="carousel-img">
+      <img src="image2.jpg" alt="Image 2" class="carousel-img">
+      <img src="image3.jpg" alt="Image 3" class="carousel-img">
+    </div>
+    <div class="calculator">
+      <input type="text" id="display" readonly>
+      <div class="buttons">
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('+')">+</button>
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('-')">-</button>
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('*')">*</button>
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="appendToDisplay('.')">.</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="appendToDisplay('/')">/</button>
+      </div>
+    </div>
+    <button id="imageButton" onclick="displayImage()">Display Image</button>
+  </div>
+
+  <script>
+    let displayValue = '';
+
+    function appendToDisplay(value) {
+      displayValue += value;
+      document.getElementById('display').value = displayValue;
+    }
+
+    function clearDisplay() {
+      displayValue = '';
+      document.getElementById('display').value = displayValue;
+    }
+
+    function calculate() {
+      try {
+        displayValue = eval(displayValue);
+        document.getElementById('display').value = displayValue;
+      } catch (error) {
+        document.getElementById('display').value = 'Error';
+      }
+    }
+
+    function displayImage() {
+      // Replace 'imageURL.jpg' with the actual URL of the image you want to display
+      alert("You clicked the button to display an image.");
+    }
+  </script>
+</body>
+</html>
